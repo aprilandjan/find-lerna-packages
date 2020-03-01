@@ -1,0 +1,24 @@
+{
+  "name": "find-lerna-packages",
+  "version": "1.0.0",
+  "description": "A utility module to help find lerna packages in lerna project",
+  "main": "index.js",
+  "author": "aprilandjan",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc -w",
+    "test": "jest",
+    "prebuild": "rimraf ./dist",
+    "build": "tsc",
+    "init": "tsc --init"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "lerna": "^3.20.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "lerna": "*"
+  }
+}
