@@ -10,12 +10,15 @@
     "test": "jest",
     "prebuild": "rimraf ./dist",
     "build": "tsc",
-    "init": "tsc --init"
+    "prepublishOnly": "yarn test && yarn build"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
     "rimraf": "^3.0.2",
+    "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
