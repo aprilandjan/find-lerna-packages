@@ -1,7 +1,7 @@
 {
   "name": "find-lerna-packages",
   "version": "1.0.0",
-  "description": "A utility module to help find lerna packages in lerna project",
+  "description": "An utility module to help find lerna packages in lerna project",
   "main": "index.js",
   "author": "aprilandjan",
   "license": "MIT",
