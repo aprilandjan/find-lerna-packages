@@ -23,27 +23,19 @@ export interface LernaPackage {
 }
 
 /** get packages async by cwd */
-export function getPackagesAsync(cwd: string): Promise<LernaPackage[]> {
+export function getPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
   return getPackages(cwd);
 }
 
-/** get packages sync by cwd */
-export function getPackagesSync(cwd: string): LernaPackage[] {
-  // TODO:
-  return [];
-}
+// /** get packages sync by cwd */
+// export function getPackagesSync(cwd: string): LernaPackage[] {
+//   // TODO:
+//   return [];
+// }
 
 // interface GetLernaPackages {
 //   (sync: boolean): LernaPackage[];
 //   (sync: false): Promise<LernaPackage[]>;
 // }
 
-// const getLernaPackages: GetLernaPackages = (sync: true | false) => {
-//   const cwd = process.cwd();
-//   if (sync) {
-//     return getPackagesSync(cwd);
-//   }
-//   return getPackagesAsync(cwd);
-// }
-
-// export default getLernaPackages;
+export default getPackagesAsync;
