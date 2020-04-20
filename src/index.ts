@@ -1,7 +1,7 @@
 import { getPackages } from '@lerna/project';
 
 /** represent lerna package instance */
-export interface LernaPackage {
+interface LernaPackage {
   readonly name: string;
   readonly location: string;
   readonly private: boolean;
@@ -23,7 +23,7 @@ export interface LernaPackage {
 }
 
 /** get packages async by cwd */
-export function getPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
+function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
   return getPackages(cwd);
 }
 
@@ -38,4 +38,5 @@ export function getPackagesAsync(cwd: string = process.cwd()): Promise<LernaPack
 //   (sync: false): Promise<LernaPackage[]>;
 // }
 
-export default getPackagesAsync;
+// export default findPackagesAsync;
+export = findPackagesAsync;
