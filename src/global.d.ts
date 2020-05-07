@@ -1,4 +1,18 @@
 declare module '@lerna/project' {
   // project interface
-  export const getPackages: (cwd: string) => Promise<any[]>;
+  // https://www.typescriptlang.org/docs/handbook/interfaces.html#class-types
+  class Project {
+    constructor(cwd: string);
+    getPackages: () => Promise<any[]>;
+    packageConfigs: string[];
+    rootPath: string;
+  }
+  export = Project;
+}
+
+declare module '@lerna/package' {
+  class Package {
+    constructor(pkg: any, location: string, rootPath?: string);
+  }
+  export = Package;
 }

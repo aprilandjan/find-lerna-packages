@@ -1,4 +1,8 @@
-import { getPackages } from '@lerna/project';
+import path from 'path';
+import loadJsonFile from 'load-json-file';
+import Project from '@lerna/project';
+import Package from '@lerna/package';
+import { makeFileFinder } from './syncMakeFileFinder';
 
 /** represent lerna package instance */
 interface LernaPackage {
@@ -22,21 +26,26 @@ interface LernaPackage {
   toJSON: () => any;
 }
 
-/** get packages async by cwd */
-function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
-  return getPackages(cwd);
+/** find packages async by cwd */
+export function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
+  return new Project(cwd).getPackages();
 }
 
-// /** get packages sync by cwd */
-// export function getPackagesSync(cwd: string): LernaPackage[] {
-//   // TODO:
-//   return [];
-// }
+/** find packages sync by cwd */
+export function findPackagesSync(cwd: string): LernaPackage[] {
+  const project = new Project(cwd);
+  const finder = makeFileFinder(project.rootPath, project.packageConfigs);
+  const results = finder('package.json');
+  return results.map(packageJsonPath => {
+    const packageJson = loadJsonFile.sync(packageJsonPath);
+    return new Package(packageJson, path.dirname(packageJsonPath), project.rootPath);
+  }) as LernaPackage[];
+}
 
 // interface GetLernaPackages {
 //   (sync: boolean): LernaPackage[];
 //   (sync: false): Promise<LernaPackage[]>;
 // }
 
-// export default findPackagesAsync;
-export = findPackagesAsync;
+export default findPackagesAsync;
+// export = findPackagesAsync;
