@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/npm/v/find-lerna-packages?style=flat-square)](https://www.npmjs.com/package/find-lerna-packages) [![version](https://img.shields.io/npm/dm/find-lerna-packages?style=flat-square)](https://www.npmjs.com/package/find-lerna-packages)
 
-An utility module to help find lerna packages in lerna project.
+An utility module to help find lerna packages in lerna project programmatically.
 
 ## Usage
 
