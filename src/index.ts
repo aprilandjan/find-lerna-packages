@@ -32,7 +32,7 @@ export function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPac
 }
 
 /** find packages sync by cwd */
-export function findPackagesSync(cwd: string): LernaPackage[] {
+export function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
   const project = new Project(cwd);
   const finder = makeFileFinder(project.rootPath, project.packageConfigs);
   const results = finder('package.json');
