@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/npm/v/find-lerna-packages?style=flat-square)](https://www.npmjs.com/package/find-lerna-packages) [![version](https://img.shields.io/npm/dm/find-lerna-packages?style=flat-square)](https://www.npmjs.com/package/find-lerna-packages)
 
-An utility module to help find lerna packages in lerna project programmatically.
+An utility module to help find lerna packages in lerna project programmatically, asynchronously or synchronously.
 
 ## Usage
 
@@ -23,9 +23,13 @@ Then in your source codes:
 ```js
 const findLernaPackages = require('find-lerna-packages');
 
-// This will always return a promise resolved with `LernaPackage` list
-// note: currently you can only get packages async
+// asynchronous: return a promise resolved with `LernaPackage` array
 findLernaPackages(process.cwd()).then((pkg) => {
+  console.log(pkg.name, pkg.location);
+});
+
+// synchronous: return `LernaPackage` array
+findLernaPackages.sync(process.cwd()).map(pkg => {
   console.log(pkg.name, pkg.location);
 });
 ```
@@ -39,4 +43,3 @@ You can read package properties directly, such as `name`,`location`, `private`,`
 ## LICENSE
 
 MIT
-
