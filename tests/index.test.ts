@@ -1,11 +1,11 @@
 import path from 'path';
-import { findPackagesAsync, findPackagesSync } from '../src/index';
+import findPackages from '../src/index';
 
 const cwd = path.join(__dirname, './fixtures/project');
 
 describe('get packages async', () => {
   const getPackageNames = async (cwd?: string) => {
-    const packages = await findPackagesAsync(cwd);
+    const packages = await findPackages(cwd);
     return packages.map(p => p.name).sort();
   }
   it('should get all packages in lerna project root directory', async () => {
@@ -28,7 +28,7 @@ describe('get packages async', () => {
 
 describe('get packages sync', () => {
   const getPackageNames = (cwd?: string) => {
-    const packages = findPackagesSync(cwd);
+    const packages = findPackages.sync(cwd);
     return packages.map(p => p.name).sort();
   }
   it('should get all packages in lerna project root directory', () => {

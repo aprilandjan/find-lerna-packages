@@ -27,12 +27,12 @@ interface LernaPackage {
 }
 
 /** find packages async by cwd */
-export function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
+function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
   return new Project(cwd).getPackages();
 }
 
 /** find packages sync by cwd */
-export function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
+function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
   const project = new Project(cwd);
   const finder = makeFileFinder(project.rootPath, project.packageConfigs);
   const results = finder('package.json');
@@ -42,10 +42,12 @@ export function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
   }) as LernaPackage[];
 }
 
-// interface GetLernaPackages {
-//   (sync: boolean): LernaPackage[];
-//   (sync: false): Promise<LernaPackage[]>;
-// }
+interface findPackages {
+  (cwd?: string): Promise<LernaPackage[]>;
+  sync(cwd?: string): LernaPackage[];
+}
 
-export default findPackagesAsync;
-// export = findPackagesAsync;
+const f: any = findPackagesAsync;
+f.sync = findPackagesSync;
+
+export = f as findPackages;
