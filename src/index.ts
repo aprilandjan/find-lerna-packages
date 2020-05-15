@@ -6,16 +6,23 @@ import { makeFileFinder } from './syncMakeFileFinder';
 
 /** represent lerna package instance */
 interface LernaPackage {
+  /** the name field in package.json */
   readonly name: string;
+  /** the directory where the package locates */
   readonly location: string;
   readonly private: boolean;
   readonly resolved: string;
+  /** the root path of the current lerna project */
   readonly rootPath: string;
+  /** the bin field in package.json */
   readonly bin: { [key: string]: string };
+  /** the script field in package.json */
   readonly scripts: { [key: string]: string };
   readonly manifestLocation: string;
   readonly nodeModulesLocation: string;
+  /** the directory where the package bin executable locates */
   readonly binLocation: string;
+  /** the version field in package.json */
   version: string;
   readonly dependencies: string[];
   readonly devDependencies: string[];
@@ -26,12 +33,10 @@ interface LernaPackage {
   toJSON: () => any;
 }
 
-/** find packages async by cwd */
 function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
   return new Project(cwd).getPackages();
 }
 
-/** find packages sync by cwd */
 function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
   const project = new Project(cwd);
   const finder = makeFileFinder(project.rootPath, project.packageConfigs);
@@ -43,7 +48,9 @@ function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
 }
 
 interface findPackages {
+  /** find packages async by cwd */
   (cwd?: string): Promise<LernaPackage[]>;
+  /** find packages sync by cwd */
   sync(cwd?: string): LernaPackage[];
 }
 
