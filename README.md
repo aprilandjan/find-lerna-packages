@@ -24,19 +24,30 @@ Then in your source codes:
 const findLernaPackages = require('find-lerna-packages');
 
 // asynchronous: return a promise resolved with `LernaPackage` array
-findLernaPackages(process.cwd()).then((pkg) => {
-  console.log(pkg.name, pkg.location);
+findLernaPackages(process.cwd()).then((pkgList) => {
+  pkgList.forEach(pkg => {
+    console.log(pkg.name, pkg.location);
+  });
 });
 
 // synchronous: return `LernaPackage` array
 findLernaPackages.sync(process.cwd()).map(pkg => {
   console.log(pkg.name, pkg.location);
 });
+
+// asynchronous: get `LernaPackage` directly by name
+findLernaPackages.get('foo').then(pkg => {
+  console.log(pkg.name, pkg.location);
+});
+
+// synchronous: get `LernaPackage` directly by name
+const pkg = findLernaPackages.getSync('foo');
+console.log(pkg.name, pkg.location);
 ```
 
 ## About `LernaPackage`
 
-`LernaPackage` is actually the class describing lerna sub packages from `@lerna/package`, which is used by lerna cli internally. This utility module provide a simple type definition of it for friendly usage.
+`LernaPackage` is actually the class describing lerna sub packages from `@lerna/package`, which is used by lerna cli internally. This utility module provides a simple type definition of it for friendly usage.
 
 You can read package properties directly, such as `name`,`location`, `private`,`rootPath`, etc.
 

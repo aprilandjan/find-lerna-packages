@@ -47,14 +47,32 @@ function findPackagesSync(cwd: string = process.cwd()): LernaPackage[] {
   }) as LernaPackage[];
 }
 
+function getPackageByName(name: string, cwd: string = process.cwd()): Promise<LernaPackage | undefined> {
+  return findPackagesAsync(cwd).then((packages) => {
+    const result = packages.find(p => p.name === name);
+    return Promise.resolve(result);
+  });
+}
+
+function getPackageByNameSync(name: string, cwd: string = process.cwd()): LernaPackage | undefined {
+  const packages = findPackagesSync(cwd);
+  return packages.find(p => p.name === name);
+}
+
 interface findPackages {
   /** find packages async by cwd */
   (cwd?: string): Promise<LernaPackage[]>;
   /** find packages sync by cwd */
   sync(cwd?: string): LernaPackage[];
+  /** get one package async by name in current lerna project */
+  get(name: string, cwd?: string): Promise<LernaPackage | undefined>;
+  /** get one package sync by name in current lerna project */
+  getSync(name: string, cwd?: string): LernaPackage | undefined;
 }
 
 const f: any = findPackagesAsync;
 f.sync = findPackagesSync;
+f.get = getPackageByName;
+f.getSync = getPackageByNameSync;
 
 export = f as findPackages;

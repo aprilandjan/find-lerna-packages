@@ -48,3 +48,25 @@ describe('get packages sync', () => {
     expect(names).toHaveLength(0);
   });
 });
+
+describe('get package by name async', () => {
+  it('should get the package by name if exists', async () => {
+    const bar = await findPackages.get('bar', cwd);
+    expect(bar!.name).toEqual('bar');
+  });
+  it('should get undefined by name if not exists', async () => {
+    const noo = await findPackages.get('noo', cwd);
+    expect(noo).toBeUndefined();
+  });
+});
+
+describe('get package by name sync', () => {
+  it('should get the package by name if exists', () => {
+    const bar = findPackages.getSync('bar', cwd);
+    expect(bar!.name).toEqual('bar');
+  });
+  it('should get undefined by name if not exists', () => {
+    const noo = findPackages.getSync('noo', cwd);
+    expect(noo).toBeUndefined();
+  });
+});
