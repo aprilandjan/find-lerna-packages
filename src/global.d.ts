@@ -6,6 +6,7 @@ declare module '@lerna/project' {
     getPackages: () => Promise<any[]>;
     packageConfigs: string[];
     rootPath: string;
+    manifest: any;
   }
   export = Project;
 }

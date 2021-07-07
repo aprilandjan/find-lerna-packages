@@ -70,3 +70,18 @@ describe('get package by name sync', () => {
     expect(noo).toBeUndefined();
   });
 });
+
+describe('get root package sync', () => {
+  it('should get root package in lerna project root directory', () => {
+    const root = findPackages.getRoot(cwd);
+    expect(root?.name).toEqual('root');
+  });
+  it('should get root package in lerna project sub package directory', () => {
+    const root = findPackages.getRoot(path.join(cwd, './packages/foo'));
+    expect(root?.name).toEqual('root');
+  });
+  it('should get no packages outside lerna project directory', () => {
+    const root = findPackages.getRoot(path.join(cwd, '../'));
+    expect(root).toBeUndefined();
+  });
+});

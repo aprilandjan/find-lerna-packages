@@ -33,6 +33,11 @@ interface LernaPackage {
   toJSON: () => any;
 }
 
+function getRootPackage(cwd: string = process.cwd()) {
+  const project = new Project(cwd);
+  return project.manifest as LernaPackage;
+}
+
 function findPackagesAsync(cwd: string = process.cwd()): Promise<LernaPackage[]> {
   return new Project(cwd).getPackages();
 }
@@ -68,11 +73,14 @@ interface findPackages {
   get(name: string, cwd?: string): Promise<LernaPackage | undefined>;
   /** get one package sync by name in current lerna project */
   getSync(name: string, cwd?: string): LernaPackage | undefined;
+  /** get the root package in current lerna project */
+  getRoot(cwd?: string): LernaPackage;
 }
 
 const f: any = findPackagesAsync;
 f.sync = findPackagesSync;
 f.get = getPackageByName;
 f.getSync = getPackageByNameSync;
+f.getRoot = getRootPackage;
 
 export = f as findPackages;

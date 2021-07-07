@@ -43,6 +43,10 @@ findLernaPackages.get('foo').then(pkg => {
 // synchronous: get `LernaPackage` directly by name
 const pkg = findLernaPackages.getSync('foo');
 console.log(pkg.name, pkg.location);
+
+// synchronous: get root `LernaPackage` directly
+const root = findLernaPackages.getRoot();
+console.log(pkg.name, pkg.location);
 ```
 
 ## About `LernaPackage`
